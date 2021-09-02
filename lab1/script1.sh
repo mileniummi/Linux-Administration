@@ -58,8 +58,9 @@ cd ~
       #идентичны.
   echo "файлы list_hlink и list_slink идентичны после переименования list на list1?"
   cmp -s test/links/list_hlink test/links/list_slink && echo "YES" || echo "NO"
-#(12) Создать в домашнем каталоге пользователя жесткую ссылку на файл list_link с именем list1. WTFFFFFFFFFFFFFFFFFFFFFFFFFFFF?
-
+#(12) Создать в домашнем каталоге пользователя жесткую ссылку на файл list_link с именем list1.
+  echo "probabbly mistake in exercise" > list_link
+  ln list_link list1
 #(13) Создать в домашнем каталоге файл list_conf, содержащий список файлов с расширением .conf, из
       #каталога /etc и всех его подкаталогов.
   ls -aFR /etc 2>/dev/null | grep "\.conf$"  > list_conf
