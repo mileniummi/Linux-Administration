@@ -12,9 +12,9 @@ cd ~
 
 #(3) Вывести в конец этого файла два числа. Сначала количество поддиректориев в каталоге /etc, а
     #затем количество скрытых файлов в каталоге /etc.
-	echo "number of	directories in /etc:" >> test/list
-	grep '/' test/list  | wc -l >> test/list
-	echo "number of hidden files in /etc:">> test/list
+	echo "Количество директорий в /etc:" >> test/list
+	grep '/$' test/list  | wc -l >> test/list
+	echo "Количество скрытых файлов в /etc:">> test/list
 	grep "^\.[a-zA-z]" test/list | wc -l >> test/list
 #(4) Создать в каталоге test каталог links.
 	cd test
@@ -37,30 +37,32 @@ cd ~
 	cd ..
 #(7) Вывести на экран количество имен (жестких ссылок) файла list_hlink, количество имен (жестких
      #ссылок) файла list и количество имен (жестких ссылок) файла list_slink.
-	echo "number of hard links of file list:"
+	echo "\033[37;1;45mКоличество жестких ссылок файла list:\033[0m"
 	ls -lR | grep "[^/]list$" | cut -d " " -f 2
 
-	echo "number of hard links of file list_hlink:"
+	echo "\033[37;1;45mКоличество жестких ссылок файла list_hlink:\033[0m"
 	ls -lR | grep "list_hlink$" | cut -d " " -f 2
 
-	echo "number of hard links of file list_slink:"
+	echo "\033[37;1;45mКоличество жестких ссылок файла file list_slink:\033[0m"
 	ls -lR | grep "list_slink -> ../list$" | cut -d " " -f 2
 #(8) Дописать в конец файла list_hlink число строк в файле links.
 	echo "number of lines in file list:" >> test/list
 	cat test/list | wc -l >> test/list
 #(9) Сравнить содержимое файлов list_hlink и list_slink. Вывести на экран YES, если файлы
      #идентичны.
-  echo "файлы list_hlink и list_slink идентичны?"
+  echo "\033[37;1;45mФайлы list_hlink и list_slink идентичны?\033[0m"
   cmp -s test/links/list_hlink test/links/list_slink && echo "YES" || echo "NO"
 #(10) Переименовать файл list в list1.
   mv test/list test/list1
 #(11) Сравнить содержимое файлов list_hlink и list_slink. Вывести на экран YES, если файлы
       #идентичны.
-  echo "файлы list_hlink и list_slink идентичны после переименования list на list1?"
+  echo "\033[37;1;45mФайлы list_hlink и list_slink идентичны после переименования list на list1?\033[0m"
   cmp -s test/links/list_hlink test/links/list_slink && echo "YES" || echo "NO"
-#(12) Создать в домашнем каталоге пользователя жесткую ссылку на файл list_link с именем list1.
-  echo "probabbly mistake in exercise" > list_link
-  ln list_link list1
+#(12) Создать в домашнем каталоге пользователя жесткую ссылку на файл list_link с именем list1.(мб наооборот)
+ if [ ! -e list_link ]
+ then
+    ln  test/list1 list_link
+  fi
 #(13) Создать в домашнем каталоге файл list_conf, содержащий список файлов с расширением .conf, из
       #каталога /etc и всех его подкаталогов.
   ls -aFR /etc 2>/dev/null | grep "\.conf$"  > list_conf
@@ -82,13 +84,14 @@ cd ~
   cp --backup=numbered list_conf_d test/.sub/list_conf_d
 #(19) Вывести на экран полный список файлов (включая все подкаталоги и их содержимое) каталога
       #test.
+   echo "\033[37;1;45mПолный список файлов (включая все подкаталоги и их содержимое) каталога test\033[0m"
   ls -aRF test/
 #(20) Создать в домашнем каталоге файл man.txt, содержащий документацию на команду man.
   man man > man.txt
 #(21) Разбить файл man.txt на несколько файлов, каждый из которых будет иметь размер не более 1
       #килобайта.
   split --bytes=1000 man.txt 98
-#(22) Переместить одной командой все файлы, полученные в пункте 21 в каталог man.dir.
+#(22) Создать каталог man.dir.
     if [ ! -e man.dir ]
       then
         mkdir man.dir
@@ -101,7 +104,7 @@ cd ~
   cd ..
 #(25) Сравнить файлы man.txt в домашней каталоге и в каталоге man.dir и вывести YES, если файлы
       #идентичны.
-  echo "Одинаковы ли файлы man.txt?"
+  echo "\033[37;1;45mОдинаковы ли файлы man.txt?\033[0m"
   cmp -s man.txt man.dir/man.txt && echo "YES" || echo "NO"
 #(26) Добавить в файл man.txt, находящийся в домашнем каталоге несколько строчек с произвольными
       #символами в начало файла и несколько строчек в конце файла.
@@ -117,7 +120,7 @@ cd ~
   cd ..
 #(30) Сравнить файлы man.txt в домашней каталоге и в каталоге man.dir и вывести YES, если файлы
       #идентичны.
-  echo "Одинаковы ли файлы man.txt?"
+  echo "\033[37;1;45mОдинаковы ли файлы man.txt после патча?\033[0m"
   cmp -s man.txt man.dir/man.txt && echo "YES" || echo "NO"
 
 cd ..
