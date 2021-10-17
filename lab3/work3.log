@@ -28,7 +28,8 @@ user chrony has id 992
 user avahi has id 70
 user rngd has id 991
 user user has id 1000
-user u1 has id 1002
+user u1 has id 1001
+user u2 has id 1002
 Root last changed password date:
  never
 All groups in system:
@@ -82,7 +83,7 @@ avahi,
 slocate,
 rngd,
 user,
-g1,
 u1,
-username: u1 user_id: 1002 user_groups:   u1 g1
-group g1 has members: user,u1
+u2,
+username: u1 user_id: 1001 user_groups:   u1 g1
+group g1 has members: u1,user
